@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Registro extends AppCompatActivity implements View.OnClickListener{
 
@@ -27,7 +28,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener{
 
         nombreEdit = findViewById(R.id.nombreEdit);
         idEdit = findViewById(R.id.idEdit);
-        continuarBtn = findViewById(R.id.continuarBtn);
+        continuarBtn = findViewById(R.id.continuar2Btn);
 
         continuarBtn.setOnClickListener(this);
 
@@ -37,18 +38,55 @@ public class Registro extends AppCompatActivity implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.continuarBtn:
+            case R.id.continuar2Btn:
                 SharedPreferences preferences = getSharedPreferences("Datos", MODE_PRIVATE);
 
-                String datos = nombreEdit.getText().toString();
+               // String registroActual = preferences.getString("registro", "");
 
-                String registro = datos + ":" + " ";
+                String registroSha = preferences.getString("nombreSha", "");
 
-                preferences.edit().putString("registro", registro).apply();
+                String nombres = nombreEdit.getText().toString();
+                String id = idEdit.getText().toString();
 
-                Intent i = new Intent(this, Nexo.class);
-                startActivity(i);
+                String registro = registroSha + ":" + nombres + ":" + " ";
+
+                preferences.edit().putString("nombreSha", registro).apply();
+
+
+                /*String nombreSha = preferences.getString("nombreSha", "no hay nombre aun");
+                String idSha = preferences.getString("idSha", "no hay id aun");*/
+
+
+
+
+
+                if(nombres.trim().isEmpty()){
+                    Toast.makeText(this, "Ingresa el nombre", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (id.trim().isEmpty()){
+                    Toast.makeText(this, "Ingresa un id", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+               /* if(idSha.contains(id)){
+                    Toast.makeText(this, "Usuario ya registrado", Toast.LENGTH_SHORT).show();
+                }else{
+                    String name = nombres + ":" + nombres;
+
+                    preferences.edit().putString("nombreSha", nombreSha).apply();
+                    preferences.edit().putString("idSha", idSha).apply();
+
+
+
+                }*/
+
+                 Intent x = new Intent(this, Nexo.class);
+                    startActivity(x);
+
+
                 break;
+
         }
     }
 }

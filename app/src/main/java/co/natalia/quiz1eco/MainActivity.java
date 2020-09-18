@@ -33,9 +33,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         SharedPreferences preferences = getSharedPreferences("Datos", MODE_PRIVATE);
-        String registro = preferences.getString("registro", "No hay datos aun");
+        String registro = preferences.getString("nombreSha", "");
 
-        textInfo.setText(registro);
+        String[] informacion = registro.split(":");
+
+        textInfo.setText("");
+        for (int i=0; i<informacion.length; i++){
+            textInfo.append(informacion[i] + "\n");
+        }
+
     }
 
     @Override
